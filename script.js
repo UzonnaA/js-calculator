@@ -94,6 +94,13 @@ function buttonInput(button){
         reset = true;
     }
 
+    if(button.target.textContent == '-'){
+        firstNum = textBox.textContent;
+        currOperation = 'subtract';
+        button.target.className = 'button_alt';
+        reset = true;
+    }
+
     // parseInt turns a string into an Int
     // var.toString() turns an Int into a string
 
