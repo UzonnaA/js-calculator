@@ -11,6 +11,10 @@ let lastNum = 0;
 // Save the current operation
 let currOperation = 'none';
 
+// We need this so that after an operation
+// We can type in a new number
+let reset = false;
+
 // Have the operator buttons in a list if needed
 let opButtons = [];
 
@@ -45,16 +49,13 @@ function buttonInput(button){
     }else{
         // !NaN means it is a number
         // This code handles entering any of the normal numbers
-        if(textBox.textContent == '0' && !isNaN(button.target.textContent)){
+        if( (textBox.textContent == '0' && !isNaN(button.target.textContent)) || (reset == true && !isNaN(button.target.textContent)) ){
             textBox.textContent = button.target.textContent;
+            reset = false;
         }else if(!isNaN(button.target.textContent)){
             textBox.textContent += button.target.textContent;
         }
     }
-    
-    
-    
-    
 
     // Handles Clear
     if(button.target.textContent == 'C'){
@@ -71,12 +72,52 @@ function buttonInput(button){
         textBox.textContent = '0';
     }
 
+    // Handles operations
+    if(button.target.textContent == '÷'){
+        firstNum = textBox.textContent;
+        currOperation = 'divide';
+        button.target.className = 'button_alt';
+        reset = true;
+    }
+
+    if(button.target.textContent == '+'){
+        firstNum = textBox.textContent;
+        currOperation = 'add';
+        button.target.className = 'button_alt';
+        reset = true;
+    }
+
+    if(button.target.textContent == 'X'){
+        firstNum = textBox.textContent;
+        currOperation = 'multiply';
+        button.target.className = 'button_alt';
+        reset = true;
+    }
+
+    // parseInt turns a string into an Int
+    // var.toString() turns an Int into a string
+
+    if(button.target.textContent == '='){
+        lastNum = textBox.textContent;
+        textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
+        reset = true;
+
+        
+    }
+
 
 
 
 }
 
 function operation(num1, num2, type){
+    // Everytime we do an operation
+    // We no longer need the last operation highlighted
+    for(let i = 0; i < opButtons.length; i++){
+        opButtons[i].className = 'button';
+    }
+
+
     if(type == 'add'){
         return num1 + num2;
     }
