@@ -60,6 +60,13 @@ function buttonInput(button){
     // Handles Clear
     if(button.target.textContent == 'C'){
         textBox.textContent = '0';
+        currOperation = 'none';
+        firstNum = 0;
+        lastNum = 0;
+
+        for(let i = 0; i < opButtons.length; i++){
+            opButtons[i].className = 'button';
+        }
     }
 
 
@@ -74,6 +81,14 @@ function buttonInput(button){
 
     // Handles operations
     if(button.target.textContent == '÷'){
+        // If we're coming from another operation, solve that first
+        if(currOperation !== 'none'){
+            lastNum = textBox.textContent;
+            textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
+            reset = true;
+            currOperation = 'divide';
+        }
+        
         firstNum = textBox.textContent;
         currOperation = 'divide';
         button.target.className = 'button_alt';
@@ -81,34 +96,60 @@ function buttonInput(button){
     }
 
     if(button.target.textContent == '+'){
+        if(currOperation !== 'none'){
+            lastNum = textBox.textContent;
+            textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
+            reset = true;
+            currOperation = 'add';
+        }
+        
         firstNum = textBox.textContent;
         currOperation = 'add';
         button.target.className = 'button_alt';
         reset = true;
+        
+        
     }
 
     if(button.target.textContent == 'X'){
+        if(currOperation !== 'none'){
+            lastNum = textBox.textContent;
+            textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
+            reset = true;
+            currOperation = 'multiply';
+        }
+        
         firstNum = textBox.textContent;
         currOperation = 'multiply';
         button.target.className = 'button_alt';
         reset = true;
+        
     }
 
     if(button.target.textContent == '-'){
+        if(currOperation !== 'none'){
+            lastNum = textBox.textContent;
+            textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
+            reset = true;
+            currOperation = 'subtract';
+        }
+        
         firstNum = textBox.textContent;
         currOperation = 'subtract';
         button.target.className = 'button_alt';
         reset = true;
+        
+        
     }
 
     // parseInt turns a string into an Int
     // var.toString() turns an Int into a string
-
     if(button.target.textContent == '='){
         lastNum = textBox.textContent;
         textBox.textContent = operation(parseInt(firstNum), parseInt(lastNum), currOperation).toString().slice(0,12);
         reset = true;
 
+        currOperation = 'none';
         
     }
 
