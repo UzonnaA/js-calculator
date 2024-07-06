@@ -1,7 +1,17 @@
 const buttonSection = document.querySelector(".button_section");
 const textBox = document.querySelector(".text_box");
 
+// This will store the number on display
 let currentValue = '0';
+
+// These will store the numbers for our calcs
+let firstNum = 0;
+let lastNum = 0;
+
+
+let currOperation = 'none';
+
+// Set the textbox to 0 by default
 textBox.textContent = currentValue;
 
 function createButtons(){
@@ -49,6 +59,9 @@ function buttonInput(button){
     if(textBox.textContent.length == 0 && button.target.textContent == '←'){
         textBox.textContent = '0';
     }
+
+
+
 
 }
 
