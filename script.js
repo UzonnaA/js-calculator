@@ -35,7 +35,7 @@ function buttonInput(button){
         textBox.textContent += button.target.textContent;
     }
 
-    // Handles CLear
+    // Handles Clear
     if(button.target.textContent == 'C'){
         textBox.textContent = '0';
     }
