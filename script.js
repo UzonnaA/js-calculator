@@ -8,8 +8,11 @@ let currentValue = '0';
 let firstNum = 0;
 let lastNum = 0;
 
-
+// Save the current operation
 let currOperation = 'none';
+
+// Have the operator buttons in a list if needed
+let opButtons = [];
 
 // Set the textbox to 0 by default
 textBox.textContent = currentValue;
@@ -37,13 +40,21 @@ function buttonInput(button){
     console.log("A button was CLICKED!");
     console.log(`It was ${button.target.textContent}`);
 
-    // !NaN means it is a number
-    // This code handles entering any of the normal numbers
-    if(textBox.textContent == '0' && !isNaN(button.target.textContent)){
-        textBox.textContent = button.target.textContent;
-    }else if(!isNaN(button.target.textContent)){
-        textBox.textContent += button.target.textContent;
+    if(textBox.textContent.length > 12 && !isNaN(button.target.textContent)){
+        // Do nothing when the number is too long
+    }else{
+        // !NaN means it is a number
+        // This code handles entering any of the normal numbers
+        if(textBox.textContent == '0' && !isNaN(button.target.textContent)){
+            textBox.textContent = button.target.textContent;
+        }else if(!isNaN(button.target.textContent)){
+            textBox.textContent += button.target.textContent;
+        }
     }
+    
+    
+    
+    
 
     // Handles Clear
     if(button.target.textContent == 'C'){
@@ -65,7 +76,23 @@ function buttonInput(button){
 
 }
 
+function operation(num1, num2, type){
+    if(type == 'add'){
+        return num1 + num2;
+    }
 
+    if(type == 'subtract'){
+        return num1 - num2;
+    }
+
+    if(type == 'multiply'){
+        return num1 * num2;
+    }
+
+    if(type == 'divide'){
+        return num1 / num2;
+    }
+}
 
 
 
@@ -94,6 +121,7 @@ function indexToSymbol(index, button){
     if(index == 7){
         button.textContent = '÷';
         button.style.fontSize = '50px';
+        opButtons.push(button);
     }
 
     if(index == 8){
@@ -114,6 +142,7 @@ function indexToSymbol(index, button){
     if(index == 11){
         button.textContent = 'X';
         button.style.fontSize = '30px';
+        opButtons.push(button);
     }
 
     if(index == 12){
@@ -134,6 +163,7 @@ function indexToSymbol(index, button){
     if(index == 15){
         button.textContent = '-';
         button.style.fontSize = '50px';
+        opButtons.push(button);
     }
 
     if(index == 16){
@@ -154,6 +184,7 @@ function indexToSymbol(index, button){
     if(index == 19){
         button.textContent = '+';
         button.style.fontSize = '50px';
+        opButtons.push(button);
     }
 
     if(index == 21){

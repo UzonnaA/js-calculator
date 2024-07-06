@@ -47,5 +47,14 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: beige;
+}
+
+.button_alt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    color: white;
 }
 
